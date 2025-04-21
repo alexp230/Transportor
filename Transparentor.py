@@ -1,7 +1,7 @@
 from PIL import Image
 import numpy as np
 
-def MakeImageTransparent(inputPath: str, outputPath: str, backgroundColors: list):
+def MakeImageTransparent(inputPath: str, outputPath: str, backgroundColors: list, keepColors: bool):
 
     image = Image.open(inputPath).convert("RGBA") # open image in RGBA format
     imageData = np.array(image) # make a list of list of the pixels of the image
@@ -25,7 +25,8 @@ def MakeImageTransparent(inputPath: str, outputPath: str, backgroundColors: list
                     imageCopy[y, x] = [0, 0, 0, 0]
                     break
             else:
-                imageCopy[y, x] = [255,255,255,255]
+                if (not keepColors):
+                    imageCopy[y, x] = [255,255,255,255]
             
             pixelCount += 1
             printProgressBar(pixelCount, allPixels)
@@ -81,12 +82,15 @@ def printProgressBar (iteration, total, prefix = '', suffix = '', decimals = 1, 
 Gray = [(150, 250), (150, 250), (150, 250), (100, 255)]
 White = [(250, 255), (250, 255), (250, 255), (100, 255)]
 Black = [(0, 10), (0, 10), (0, 10), (250, 255)]
+TransParent = [(0, 50), (0, 50), (0, 50), (0, 255)]
 
-fileName = "Number4"
+fileName = "UAB"
 fileExtension = "png"
+keepColors = True
 
 fileInput = f"Inputs/{fileName}.{fileExtension}"
 fileOutput = f"Outputs/{fileName}-new.{fileExtension}"
 
 print()
-MakeImageTransparent(fileInput, fileOutput, [White, Gray])
+# PrintPixelsOfImage(fileInput)
+MakeImageTransparent(fileInput, fileOutput, [Gray, White, Black, TransParent], keepColors)
