@@ -84,9 +84,19 @@ White = [(250, 255), (250, 255), (250, 255), (100, 255)]
 Black = [(0, 10), (0, 10), (0, 10), (250, 255)]
 TransParent = [(0, 50), (0, 50), (0, 50), (0, 255)]
 
-fileName = "UAB"
-fileExtension = "png"
-keepColors = True
+
+fileName = input("Type in file name from inputs folder: ")
+fileExtension = input("Type in file extension: ")
+keepColors = ""
+
+while (True):
+    keepColors = input("Do you want image to keep color or be photoshop-available (1-original color | 0-photoshop color): ")
+    if (keepColors == "1"):
+        keepColors = True
+        break
+    elif (keepColors == "0"):
+        keepColors = False
+        break
 
 fileInput = f"Inputs/{fileName}.{fileExtension}"
 fileOutput = f"Outputs/{fileName}-new.{fileExtension}"
